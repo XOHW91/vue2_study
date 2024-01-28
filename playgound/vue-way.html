@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        var div = document.querySelector('#app');
+        var viewModel = {};
+
+        // mdn object define property 검색하면 문법 내용 나옴.
+        // 특정 변수의 동작(객체의 특정 속성의 동작)을 재정의하는 api이다.
+        // Object.defineProperty(대상객체 , 객체의 속성, {
+        //     //정의할 내용
+        // })
+        Object.defineProperty(viewModel, 'str', { // ==> 이 부분이 속성를 선언한 것. 변수명은 상관 없음.
+            // 속성에 접근했을 때의 동작을 정의 
+            get : function() {
+                // viewModel이라는 객체의 속성인 str에 접근할 때마다 
+                console.log('접근');
+            },
+            // 속성에 값을 할당했을 때의 동작을 정의 
+            set : function(newValue) {
+                console.log('할당', newValue);
+                div.innerHTML = newValue;
+            }
+        })
+
+        //  위처럼 viewModel이라는 객체의 str요소에 
+        //  새로운 값을 할당할 때마다 
+        //  새로운 값을 div.innetHTML에 다시 할당해주게 되면 화면이 계속 바뀌게 된다. 
+        //  ==> 이게 바로 vue의 핵심인 reativity(반응성)이다.
+        //      즉, 데이터의 변화를 라이브러리에서 감지해서 알아서 화면에 자동으로 뿌려주는 것
+        //      데이터가 바뀌는 부분이 데이터 바인딩이다.  
+         
+    </script>
+</body>
+</html> 
