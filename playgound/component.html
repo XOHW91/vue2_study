@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app-header></app-header>
+        <!-- <app-content></app-content> -->
+        <app-footer></app-footer>
+    </div>
+
+    <!-- 두번째 객체 -->
+    <div id="app2">
+        <app-header></app-header>
+        <app-footer></app-footer> 
+        <!-- 
+            **** 전역 컴포넌트와 지역 컴포넌트의 차이점 !
+            ==> 전역 컴포넌트는 인스턴스를 생성할 때마다 등록하는 게 아니라  
+            모든 인스턴스에 기본적으로 등록이 돼 있음. 
+        
+            하지만 지역 컴포넌트는 인스턴스를 생성할 때마다 등록해줘야함.
+        -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 인스턴스를 생성하면 기본적으로 ROOT Component다.
+
+        // 전역 컴포넌트 
+        // 컴포넌트를 등록하는 방법은 아래와 같다.
+        // ***** Vue.component('컴포넌트 이름', 컴포넌트 내용); 
+        Vue.component('app-header', {
+            //  Vue 컴포넌트를 정의할 때, 컴포넌트의 내용을 담은 객체를 생성하게 된다.
+            //  이 객체에는 컴포넌트의 설정, 데이터, 메서드 등이 들어가는데
+            //  여기서 "객체를 열다"라는 표현은 중괄호 {}를 의미함. ==> 컴포넌트는 객체 형태이며 일종의 템플릿과 로직을 결합한 것
+            //  Vue와 비슷한 구조를 가지며 컴포넌트에 대한 설정, 데이터, 메서드, 라이프사이클 훅 등이 포함돼 있음.
+            template: '<h1>Header</h1>'
+            // app-header라는 이름으로 컴포넌트를 등록하게 되면 
+            // 인스턴스 영역인 위의 div=app에 해당 태그를 넣어줘야 함. 
+            // 이 부분에서 컴포넌트 내용이 반영되어 화면에 나타나게 됨. 
+        }); 
+ 
+        // Vue.component('app-content', {
+        //     template: '<div>content</div>'
+        // });
+
+        // --------------------------------------------------
+        // 지역 컴포넌트 : 꼭 template's', method's' ==> '-s'를 붙여!
+
+        // ***** 
+        // new Vue({ // 생성자를 이용해 Vue객체를 생성할 때에는 단일 객체여야함. 
+        //     el: '#app', 
+        //     components: {
+        //      '키' : '값'
+        //      '컴포넌트 이름' : 컴포넌트 내용
+        //     }
+        // });
+        new Vue({ // 생성자를 이용해 Vue객체를 생성할 때에는 단일 객체여야함. 
+            el: '#app', 
+            components: {
+                'app-footer': {
+                    template: '<footer>footer</footer>'
+                }
+            }
+        });
+        
+        // 여러 개 생성할 수는 있음. 서비스에서는 이렇게 잘 안쓰지만.
+        // 이렇게 할 경우 ROOT Component가 두 개 생김.
+        new Vue({
+            el: '#app2',
+            components: {
+                'app-footer': { // 지역 컴포넌트인 app-footer는 인스턴스마다 등록해 줘야 하는 점을 주의하자.
+                    template: '<footer>footer</footer>'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- ... -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 개발자 모드 > console창에서 vm을 치면 Vue객체에 대한 정보를 볼 수 있다.
+        // Vue에서 제공하는 api(기능)과 속성에 대한 정보.
+        // var vm = new Vue({
+        //     // body 태그 안에서 app이라는 id를 가진 태그를 찾아 인스턴스를 붙이겠다는 뜻
+        //     // 붙이는 순간 Vue의 속성과 기능들이  <!-- ... --> 안에서 유효해 진다.
+        //     // 이 el가 없다면 data를 정의해도 꺽쇠 안에서 사용할 수 없음. 
+        //     el: '#app',
+        //     data: {
+        //         message: 'hi'
+        //     }
+        // });
+
+        // 아래처럼 사용하는 것보다 
+        // 위에처럼 생성자를 사용하여 Vue객체를 생성하는 것이 가득성이 더 좋음.
+        var options = {
+            el: '#app', 
+            data: {
+                message: 'hi'
+            }
+            // method, .. 
+        }
+
+        var vm = new Vue(options);
+    </script>
+</body>
+</html>
