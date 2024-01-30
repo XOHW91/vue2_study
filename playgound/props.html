@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <app-header v-bind: 프롭스 속성 이름 = "상위 컴포넌트의 데이터 이름"></app-header> -->
+        <!-- 라이브 서버로 켜서 뷰 개발자모드를 보면 상위 컴포넌트는 ROOT고, data의 이름은 message -->
+        <!-- v-bind는 props의 문법임 -->
+        <app-header v-bind:propsdata = "message"></app-header>
+        <app-content v-bind:numdata = "num"></app-content>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var appHeader = {
+            // 데이터 속성 혹은 프롭스 속성을 넣어주면 반영되어 화면에 나타남 
+            template: '<h1>{{ propsdata }}</h1>',
+            props: ['propsdata']
+        }
+
+        var appContent = {
+            template: '<div>{{ numdata }}</div>',
+            props: ['numdata']
+        }
+
+        new Vue({
+            el: '#app',
+            components: {
+                'app-header': appHeader,
+                'app-content': appContent
+            },
+            data: {
+                message: 'hi',
+                num: 10
+            }
+        })
+        // 즉, ROOT에서 hi라는 메시지를 내려보내고
+        // 상위 =>하위 로 데이터를 보내는 props를 통해 
+        // header에서 데이터를 받아서 사용하는 것. 
+    </script>
+</body>
+</html>
