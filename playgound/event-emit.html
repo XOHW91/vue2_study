@@ -36,7 +36,7 @@
         }
 
         // 항상 루트객체는 Vue가 된다. 
-        new Vue({
+        var vm = new Vue({
             el: '#app',
             components: {
                 'app-header': appHeader,
@@ -48,7 +48,8 @@
                 }, 
                 increaseNumber: function() {
                     this.num += 1;
-                    console.log(this.num);
+                    console.log(this.num); 
+                    // Vue의 속성 > 메서드 안에 있는 this.num은 data>num을 의미한다. 
                 }
             }, 
             data: {

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <!--
+                 router-link 태그는 최종적으로 화면에 a태그로 변환돼서 나옴.
+                 라우터에서 페이지 이동을 하기 위한 링크 태그임 
+            -->
+            <router-link to="/login">Login</router-link>
+            <router-link to="/main">Main</router-link>
+        </div>
+        <router-view></router-view>
+    </div>
+
+    <!-- 뷰 먼저 넣어줘야함. 순서도 중요 CDN방식으로 넣음 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3/dist/vue-router.js"></script>
+    <script>
+
+        var LoginComponent = {
+            template: '<div>login</div>'
+        }
+
+        var MainComponent = {
+            template: '<div>main</div>'
+        }
+
+        var router = new VueRouter({
+            // 페이지의 라우팅 정보가 routes속성에 배열로 담기게 된다. 
+            // 페이지의 개수만큼 객체가 필요하다. 즉, 두 페이지라면 객체는 두 개 필요함. 
+            // 라우팅 정보 ==> 어떤 url로 이동했을 때 어떤 정보가 뿌려질 지에 대한 정보 
+            routes: [
+
+                // 로그인 페이지 정보 
+                {
+                    // 페이지의 url  
+                    path: '/login',
+                    // routes의 이름을 부여했을 때 좀 더 의미있는 컴포넌트가 될 수 있음. 
+                    name: 'login',
+                    // 해당 url에서 표시될 컴포넌트
+                    component: LoginComponent
+                },
+
+                // 메인 페이지 정보 
+                {
+                    path: '/main',
+                    component: MainComponent
+                }
+            ] 
+        });
+
+        new Vue({   
+            el: '#app',
+            // 오른쪽에 있는 router는 위에 선언해준 변수다.
+            router: router
+        });
+    </script>
+</body>
+</html>
