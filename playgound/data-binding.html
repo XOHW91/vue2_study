@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        단지 화면에서 표현되는 텍스트값뿐만 아니라 전체적인 DOM에 있는 정보들까지 리액티브하게 바로바로 다시 반영한다. 
+        이게 뷰에서 하는 역할임.   
+    -->
+    <div id="app">
+        <!-- v가 붙는 순간 아래 Vue객체의 데이터 속성이나 컴퓨티드 속성 안을 뒤지게 됨  -->
+        <p v-bind:id="uuid" v-bind:class="name">{{ num }}</p>
+        <p>{{ doubleNum }}</p>
+        <!-- 
+            if와 show의 차이점?  
+            false일 때 요소검사하면 if는 DOM을 아예 제거하는 것
+            show는 style로 display=none상태로 해주는 것 
+        -->
+        <div v-if="loading">
+            Loading...
+        </div>
+        <div v-else>
+            test user has been logged in 
+        </div>
+        <div v-show="loading">
+            Loading...
+        </div>
+
+        <!-- v-model을 이용하면 value값을 다른 태그에서 사용할 수 있음. Vue 공식문서에 가면 있음 -->
+        <input type="text" v-model="message">
+        <p>
+            {{ message }}
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        
+        new Vue({
+            el: '#app',
+            data: {
+                num: 10,
+                uuid: 'abc1234',
+                name: 'text-blue',
+                loading: true,
+                inputTest: 'how?',
+                message: ''
+            },
+            // 화면 상에 나타나는 doubleNum은 computed 속성이다.
+            // 또한 ROOT의 num을 바꿀 때 같이 계산되어 바뀌는 값이다. 
+            computed: {
+                doubleNum: function() {
+                    return this.num * 2;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
