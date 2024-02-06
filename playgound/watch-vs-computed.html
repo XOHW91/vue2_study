@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{num}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app', 
+            data: {
+                num: 10
+            }, 
+            // doubleNum이라는 속성은 data 속성 중 num이라는 데이터의 두 배를 리턴함.
+            // 즉, vue 내부적으로 계산을 하게되는데 이는 로직이 실행될 때 기준이 되는 값인 num에 의존적이어서 그런 것. 
+            computed: {
+                doubleNum: function() {
+                    return this.num *2;
+                }
+            },
+            // watch는 computed랑 비슷하다. 왜냐하면 num이 바뀌었을 때 특정 로직을 실행하기 때문 
+            // 하지만 이 둘은 차이점이 있다.
+            // computed는 단순한 값에 대한 계산, 내부적으로 구현돼 있는 것들이 밸리데이션 값을 계산할 때 사용
+            // watch는 매번 실행되기 어려운 로직같은 무거운 로직에서 사용한다. 
+            watch: {
+                // watch는 num의 기존값과 새로운 값을 둘 다 인자로 받을 수 있음.
+                num: function(newValue, oldValue) {
+                    this.fetchUserByNumber(newValue);
+                }
+            }, 
+            methods: {
+                fetchUserByNumber: function(num) {
+                    console.log(num);
+                    // axios.get(num); ==> 이렇게 데이터 요청을 할 경우에 적합함.
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+<!-- 
+라이브 서버를 켜서 num을 증가시켰을 때
+console에 찍히는 값은 watch에서 실행된 것이고, 
+
+ -->
