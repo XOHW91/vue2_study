@@ -16,18 +16,18 @@
         // Object.defineProperty(대상객체 , 객체의 속성, {
         //     //정의할 내용
         // })
-        Object.defineProperty(viewModel, 'str', { // ==> 이 부분이 속성를 선언한 것. 변수명은 상관 없음.
-            // 속성에 접근했을 때의 동작을 정의 
-            get : function() {
-                // viewModel이라는 객체의 속성인 str에 접근할 때마다 
-                console.log('접근');
-            },
-            // 속성에 값을 할당했을 때의 동작을 정의 
-            set : function(newValue) {
-                console.log('할당', newValue);
-                div.innerHTML = newValue;
-            }
-        })
+        // Object.defineProperty(viewModel, 'str', { // ==> 이 부분이 속성를 선언한 것. 변수명은 상관 없음.
+        //     // 속성에 접근했을 때의 동작을 정의 
+        //     get : function() {
+        //         // viewModel이라는 객체의 속성인 str에 접근할 때마다 
+        //         console.log('접근');
+        //     },
+        //     // 속성에 값을 할당했을 때의 동작을 정의 
+        //     set : function(newValue) {
+        //         console.log('할당', newValue);
+        //         div.innerHTML = newValue;
+        //     }
+        // })
 
         //  위처럼 viewModel이라는 객체의 str요소에 
         //  새로운 값을 할당할 때마다 
@@ -35,7 +35,67 @@
         //  ==> 이게 바로 vue의 핵심인 reativity(반응성)이다.
         //      즉, 데이터의 변화를 라이브러리에서 감지해서 알아서 화면에 자동으로 뿌려주는 것
         //      데이터가 바뀌는 부분이 데이터 바인딩이다.  
-         
+        
+        // Object.defineProperty() 메서드를 사용하여 viewModel 객체에 'str'라는 속성을 추가할 수 있다.
+        // 이렇게 정의된 속성은 viewModel 객체의 일부가 되며, 해당 객체에서는 이 속성을 사용할 수 있음.
+        // 위에서 정의한 str라는 속성에 접근할 때 get함수가, 속성에 값을 할당했을 때는 set함수가 실행된다.
+
+         /*
+        아래는 리액티비티 부분을 라이브러리화 하는 것. ==> 함수로 특정 기능들을 쪼개는 것을 의미한다.
+        */
+       (function() { // 즉시실행함수다. init과 render가 애플리케이션 로직에 노출되지 않도록 아래 부분의 로직을 또다른 스코프, 즉 유효범위에 넣어주는 것이다. 
+                    // 이런식으로 유효범위를 관리한다. 변수의 스코프, 모듈화를 위하여.
+            function init() {
+                Object.defineProperty(viewModel, 'str', {
+                    get: function() {
+                        console.log('접근');
+                    },
+                    set: function(newValue) {
+                        console.log('할당', newValue);
+                        render(newValue);
+                    }
+                });
+            }
+
+            function render(newValue) {
+                div.innerHTML = newValue;
+            }
+
+            init();
+       })();
+        
+       /*
+            var myModule = (function() {
+            var privateVar = 10;
+            
+            function privateFunc() {
+                return privateVar;
+            }
+
+            return {
+                getPrivateVar: function() {
+                    return privateVar;
+                },
+                setPrivateVar: function(value) {
+                    privateVar = value;
+                }
+            };
+        })();
+
+        console.log(myModule.getPrivateVar()); // 10
+        myModule.setPrivateVar(20);
+        console.log(myModule.getPrivateVar()); // 20
+
+        위에서 myModule이라는 변수에는 즉시실행함수가 할당되어있는데 
+        이 함수 내에는 외부에서 접근할 수 없는 privateVar 변수와 privateFunc 함수가 정의되어 있다.
+        
+        이런식으로 변수와 함수를 캡슐화하여 외부에서 직접적으로 접근할 수 없도록 하는 것이 모듈화의 핵심.
+        즉, 외부에 노출시키고 싶은 것들만을 return문을 통해 공개하여 사용하고 이렇게함으로써 코드의 응집성을 높이고 결합도를 낮출 수 있다. 
+        
+       */
+
+
+        
     </script>
 </body>
 </html> 
